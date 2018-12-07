@@ -2,19 +2,20 @@ const finalhandler = require('finalhandler');
 const http         = require('http');
 const Router       = require('router');
 const bandcamp     = require('bandcamp-scraper');
-const fs           = require('fs');
+const nthline      = require('nthline');
  
 let router = Router(); 
 let handler = Router({mergeParams: true});
 let handler2 = Router({mergeParams: true});
 let handler3 = Router({mergeParams: true});
+let handler4 = Router({mergeParams: true});
 
 router.get('/', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.end('Hello');
+  res.end(JSON.stringify({"message": 'Hello'}));
 });
 
 router.use('/albuminfo/*', handler);
@@ -26,7 +27,7 @@ handler.get('/', function (req, res) {
   bandcamp.getAlbumInfo(req.params[0], function(error, albumInfo) {
     if (error) {
       res.statusCode = 500;
-      res.end(error);
+      res.end(JSON.stringify({"error": error}));
     } else {
       res.statusCode = 200;
       res.end(JSON.stringify(albumInfo));
@@ -47,7 +48,7 @@ handler2.get('/', function (req, res) {
   bandcamp.getAlbumsWithTag(params, function(error, albumsWithTag) {
     if (error) {
       res.statusCode = 500;
-      res.end(error);
+      res.end(JSON.stringify({"error": error}));
     } else {
       res.statusCode = 200;
       res.end(JSON.stringify(albumsWithTag));
@@ -62,50 +63,29 @@ handler3.get('/', function (req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   let rand = getRandomInt(3575+1)     
-  get_line('bandcamp-tags.txt', rand, (err, line) => {
-    if (err) {
-      res.statusCode = 500;
-      res.end(err);
-    }
-    else {
+  nthline(rand, 'bandcamp-tags.txt').then(line => 
+    {
       res.end(JSON.stringify({"tag": line}));
-    }
-  });
+    });
 });
+
+router.use('/randomTag/:count', handler4);
+handler4.get('/', async function (req, res) {
+  res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  let tags = [];
+  for (let i=0; i<parseInt(req.params.count); i++) {
+    let rand = getRandomInt(3575+1)     
+    tags.push(await nthline(rand, 'bandcamp-tags.txt'));
+  }
+  res.end(JSON.stringify({"tags": tags}));
+});
+
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
-}
-
-function get_line(filename, line_no, callback) {
-    let stream = fs.createReadStream(filename, {
-      flags: 'r',
-      encoding: 'utf-8',
-      fd: null,
-      mode: 0666,
-      bufferSize: 1024
-    });
-
-    let fileData = '';
-    stream.on('data', function(data){
-      fileData += data;
-
-      // The next lines should be improved
-      let lines = fileData.split("\n");
-
-      if(lines.length >= +line_no){
-        stream.destroy();
-        callback(null, lines[+line_no]);
-      }
-    });
-
-    stream.on('error', function(){
-      callback('Error', null);
-    });
-
-    stream.on('end', function(){
-      callback('File end reached without finding line', null);
-    });
 }
 
 let server = http.createServer(function(req, res) {
