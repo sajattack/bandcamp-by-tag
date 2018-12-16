@@ -5,7 +5,7 @@ const Search = Input.Search;
 
 export default class SearchBar extends Component {
   onSearch(tagName) {
-    fetch('http://localhost:4000/albumsWithTag/' + tagName + '/' + 1)
+    fetch(`${process.env.REACT_APP_API_URL}/albumsWithTag/` + tagName + '/' + 1)
       .then(response => this.handleHTTPErrors(response))
       .then(response => response.json())
       .then(result => {

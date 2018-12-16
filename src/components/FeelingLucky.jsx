@@ -9,7 +9,7 @@ export default class FeelingLucky extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/randomTag')
+    fetch(`${process.env.REACT_APP_API_URL}/randomTag`)
       .then(response => this.handleHTTPErrors(response))
       .then(response => response.json())
       .then(result => {

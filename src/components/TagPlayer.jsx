@@ -14,7 +14,7 @@ export default class TagPlayer extends Component {
   }
 
   async componentDidMount() {
-    await fetch('http://localhost:4000/albumsWithTag/'+this.props.match.params.tag+'/'+this.state.page)
+    await fetch(`${process.env.REACT_APP_API_URL}/albumsWithTag/`+this.props.match.params.tag+'/'+this.state.page)
     .then(response => response.json())
       .then(result => {
         this.setState({tag_json: result});
@@ -22,7 +22,7 @@ export default class TagPlayer extends Component {
       .catch(error => {
         console.log(error);
       });
-    fetch('http://localhost:4000/albuminfo/'+this.state.tag_json[this.state.album].url)
+    fetch(`${process.env.REACT_APP_API_URL}/albuminfo/`+this.state.tag_json[this.state.album].url)
     .then(response => response.json())
       .then(result => {
         this.setState({album_json: result});
@@ -34,7 +34,7 @@ export default class TagPlayer extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.page !== this.state.page) {
-      fetch('http://localhost:4000/albumsWithTag/'+this.props.match.params.tag+'/'+nextState.page)
+      fetch(`${process.env.REACT_APP_API_URL}/albumsWithTag/`+this.props.match.params.tag+'/'+nextState.page)
       .then(response => response.json())
         .then(result => {
           this.setState({tag_json: result});
@@ -45,7 +45,7 @@ export default class TagPlayer extends Component {
     }
 
     if (nextState.album !== this.state.album) {
-      fetch('http://localhost:4000/albuminfo/'+this.state.tag_json[nextState.album].url)
+      fetch(`${process.env.REACT_APP_API_URL}/albuminfo/`+this.state.tag_json[nextState.album].url)
       .then(response => response.json())
         .then(result => {
           this.setState({album_json: result});

@@ -8,7 +8,7 @@ export default class TagCloud extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/randomTag/100')
+    fetch(`${process.env.REACT_APP_API_URL}/randomTag/100`)
       .then(response => this.handleHTTPErrors(response))
       .then(response => response.json())
       .then(result => {
