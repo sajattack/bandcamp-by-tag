@@ -24,7 +24,7 @@ export default class SearchBar extends Component {
   render() {
     return (
         <Search
-          placeholder=""
+          placeholder="Enter a bandcamp tag"
           size="large"
           onSearch={value => this.onSearch(value)}
           enterButton
