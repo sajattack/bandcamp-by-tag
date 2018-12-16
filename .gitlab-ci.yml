@@ -43,3 +43,16 @@ deploy_app_to_dokku:
   only:
     # should only be pushing the master branch
     - master
+
+deploy_json_server_to_dokku:
+  stage: deploy
+  environment: production
+  tags:
+    # use a deploy runner
+    - deploy
+  script:
+    # push the json-server to the deploy server
+    - git subtree push --prefix server dokku@$DEPLOY_SRV:srv-${CI_PROJECT_NAME} master
+  only:
+    # should only be pushing the master branch
+    - master
