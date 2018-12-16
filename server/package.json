@@ -2,10 +2,10 @@
   "name": "json-backend",
   "version": "0.1.0",
   "description": "json-serving backend for bandcamp-by-tag",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js"
+    "start": "node server.js"
   },
   "author": "Paul Sajna <paulsajna@gmail.com>",
   "license": "MIT",
