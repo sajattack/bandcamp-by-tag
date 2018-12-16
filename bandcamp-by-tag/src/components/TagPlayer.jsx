@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 export default class TagPlayer extends Component {
   constructor(props) {
         super(props);
+        this.onNextButton = this.onNextButton.bind(this);
+        this.onPrevButton = this.onPrevButton.bind(this);
         this.state = {
           tag_json: {},
           album_json: {},
