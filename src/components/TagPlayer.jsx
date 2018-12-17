@@ -105,11 +105,17 @@ export default class TagPlayer extends Component {
     }
     if (this.state.album_json.raw != null) {
       return(
-        <div class="playerStyle">
-          <img src={this.state.album_json.imageUrl} width="303"/>
-          <div dangerouslySetInnerHTML={this.getIframe(this.state.album_json.raw.id)}/>
-          <button id="prevButton" onClick={this.onPrevButton}>Previous Album</button>
-          <button id="nextButton" onClick={this.onNextButton}>Next Album</button>
+        <div>
+          <div className="playerStyle">
+            <img src={this.state.album_json.imageUrl} width="303"/>
+            <div dangerouslySetInnerHTML={this.getIframe(this.state.album_json.raw.id)}/>
+            <button id="prevButton" onClick={this.onPrevButton}>Previous Album</button>
+            <button id="nextButton" onClick={this.onNextButton}>Next Album</button>
+            <br/>
+          </div>
+          <div className="description">
+            <p>{this.state.album_json.raw.current.about}</p>
+          </div>
         </div>
       );
     } else {

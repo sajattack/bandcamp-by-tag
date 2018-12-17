@@ -10,3 +10,8 @@
 #prevButton {
   float: left;
 }
+.description {
+  display: table;
+  margin: 0 auto;
+  width: 50%;
+}
