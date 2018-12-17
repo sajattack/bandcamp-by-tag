@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './TagPlayer.css';
 
 export default class TagPlayer extends Component {
   constructor(props) {
@@ -89,10 +90,9 @@ export default class TagPlayer extends Component {
   }
 
   render() {
-    console.log(this.state.album_json);
     if (this.state.album_json.raw != null) {
       return(
-        <div>
+        <div class="playerStyle">
           <img src={this.state.album_json.imageUrl} width="303"/>
           <div dangerouslySetInnerHTML={this.getIframe(this.state.album_json.raw.id)}/>
           <button onClick={this.onPrevButton}>Previous Album</button>
