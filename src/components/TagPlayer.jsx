@@ -23,14 +23,17 @@ export default class TagPlayer extends Component {
       .catch(error => {
         console.log(error);
       });
-    fetch(`${process.env.REACT_APP_API_URL}/albuminfo/`+this.state.tag_json[this.state.album].url)
-    .then(response => response.json())
-      .then(result => {
-        this.setState({album_json: result});
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if (this.state.tag_json.length !== 0) {
+      console.log(this.state.tag_json);
+      fetch(`${process.env.REACT_APP_API_URL}/albuminfo/`+this.state.tag_json[this.state.album].url)
+      .then(response => response.json())
+        .then(result => {
+          this.setState({album_json: result});
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -93,6 +96,14 @@ export default class TagPlayer extends Component {
   }
 
   render() {
+    if (this.state.tag_json.length===0) {
+      return (
+        <div>
+          Tag not found<br/>
+          <a href="/">Return to Home Page</a>
+        </div>
+      );
+    }
     if (this.state.album_json.raw != null) {
       return(
         <div class="playerStyle">
@@ -103,7 +114,7 @@ export default class TagPlayer extends Component {
         </div>
       );
     } else {
-      return "Loading..."
+      return "Loading...";
     }
   }
 }
