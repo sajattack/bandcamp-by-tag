@@ -98,8 +98,8 @@ export default class TagPlayer extends Component {
         <div class="playerStyle">
           <img src={this.state.album_json.imageUrl} width="303"/>
           <div dangerouslySetInnerHTML={this.getIframe(this.state.album_json.raw.id)}/>
-          <button onClick={this.onPrevButton}>Previous Album</button>
-          <button onClick={this.onNextButton}>Next Album</button>
+          <button id="prevButton" onClick={this.onPrevButton}>Previous Album</button>
+          <button id="nextButton" onClick={this.onNextButton}>Next Album</button>
         </div>
       );
     } else {

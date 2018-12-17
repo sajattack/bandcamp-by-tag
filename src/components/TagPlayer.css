@@ -2,3 +2,11 @@
   display: table;
   margin: 0 auto;
 }
+
+#nextButton {
+  float: right;
+}
+
+#prevButton {
+  float: left;
+}
