@@ -73,9 +73,6 @@ export default class TagPlayer extends Component {
 
   onNextButton(event) {
     if (this.state.album > this.state.tag_json.length) {
-      // This will eventually run out of pages and crash.
-      // I don't think the api provides a way to tell how
-      // many pages there will be.
       let nextPage = this.state.page+1;
       this.setState({page: nextPage});    
     } else {
