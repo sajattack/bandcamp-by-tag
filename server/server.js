@@ -92,4 +92,5 @@ let server = http.createServer(function(req, res) {
   router(req, res, finalhandler(req, res))
 });
  
-server.listen(4000);
+const port = process.env.PORT || 4000;
+server.listen(port);
