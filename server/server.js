@@ -12,7 +12,7 @@ let handler4 = Router({mergeParams: true});
 
 router.get('/', function(req, res) {
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.end(JSON.stringify({"message": 'Hello'}));
@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 router.use('/albuminfo/*', handler);
 handler.get('/', function (req, res) {
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   bandcamp.getAlbumInfo(req.params[0], function(error, albumInfo) {
@@ -38,7 +38,7 @@ handler.get('/', function (req, res) {
 router.use('/albumsWithTag/:tag/:page', handler2);
 handler2.get('/', function (req, res) {
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   let params = {
@@ -59,7 +59,7 @@ handler2.get('/', function (req, res) {
 router.use('/randomTag', handler3);
 handler3.get('/', function (req, res) {
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   let rand = getRandomInt(3575+1)     
@@ -72,7 +72,7 @@ handler3.get('/', function (req, res) {
 router.use('/randomTag/:count', handler4);
 handler4.get('/', async function (req, res) {
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   let tags = [];
