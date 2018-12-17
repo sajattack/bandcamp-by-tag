@@ -48,7 +48,8 @@ export default class TagPlayer extends Component {
       });
     }
 
-    if (nextState.album !== this.state.album) {
+    if (nextState.album !== this.state.album
+      && this.state.tag_json[nextState.album] !== null) {
       fetch(`${process.env.REACT_APP_API_URL}/albuminfo/`+this.state.tag_json[nextState.album].url)
       .then(response => response.json())
         .then(result => {
